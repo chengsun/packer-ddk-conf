@@ -20,7 +20,6 @@ firstboot --disabled
 poweroff
 
 %packages
-@Base
 @Core
 %end
 
