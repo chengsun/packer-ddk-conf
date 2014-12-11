@@ -11,3 +11,8 @@ Setup Jenkins:
 - execute shell
 
         exec ./ddk-build.sh
+
+Known issues:
+
+- Currently we need to manually setup the NFS ISO library on the Jenkins server, and then manually add it to the target XenServer host. It would be great if both of these could be automated.
+- Where should we export the finished build to?
