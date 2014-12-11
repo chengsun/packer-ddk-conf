@@ -3,7 +3,7 @@
 # TODO: setup ISO SR on host automatically
 
 rpmurl='http://www.uk.xensource.com/carbon/trunk-c7/xe-phase-1-latest/binary-packages/RPMS/domain0/RPMS'
-packer_dir='/root/packer'
+packer_dir='/local/scratch/packer'
 
 mkdir -p rpms
 pushd rpms
