@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# setup host for NAT
+
+expect -c "spawn ssh $HOST_USERNAME@$HOST_IP" \
+	   -c "expect -exact \"$HOST_USERNAME@$HOST_IP's password: \"" \
+       -c "send -- \"$HOST_PASSWORD\r\"" \
+       -c "interact" <<EOF
+# Setup NAT - NB, this _disable the firewall_ - be careful!
+echo 1 > /proc/sys/net/ipv4/ip_forward
+/sbin/iptables -F INPUT
+
+/sbin/iptables -t nat -A POSTROUTING -o xenbr0 -j MASQUERADE
+/sbin/iptables -A INPUT -i xenbr0 -p tcp -m tcp --dport 53 -j ACCEPT
+/sbin/iptables -A INPUT -i xenbr0 -p udp -m udp --dport 53 -j ACCEPT
+/sbin/iptables -A FORWARD -i xenbr0 -o xenapi -m state --state RELATED,ESTABLISHED -j ACCEPT
+/sbin/iptables -A FORWARD -i xenapi -o xenbr0 -j ACCEPT
+EOF
+
 # TODO: setup ISO SR on host automatically
 
 rpmurl='http://www.uk.xensource.com/carbon/trunk-c7/xe-phase-1-latest/binary-packages/RPMS/domain0/RPMS'
