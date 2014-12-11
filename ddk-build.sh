@@ -19,5 +19,5 @@ sigterm_handler() {
 	kill -INT $packer_pid 2>/dev/null
 }
 
-trap sigterm_handler 15
+trap sigterm_handler TERM
 wait $packer_pid
