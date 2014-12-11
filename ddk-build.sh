@@ -9,8 +9,8 @@ packer_dir='/root/packer'
 
 mkdir -p rpms
 pushd rpms
-wget -r --no-directories --no-parent -R index.html --accept-regex "$x86_64_rpms-[0-9.\\-]*.x86_64.rpm" $rpmurl/x86_64/
-wget -r --no-directories --no-parent -R index.html --accept-regex "$noarch_rpms-[0-9.\\-]*.noarch.rpm" $rpmurl/noarch/
+wget -r --no-directories --no-parent -R index.html --accept-regex "$x86_64_rpms-[0-9.\\-]*.x86_64.rpm" "$rpmurl/x86_64/"
+wget -r --no-directories --no-parent -R index.html --accept-regex "$noarch_rpms-[0-9.\\-]*.noarch.rpm" "$rpmurl/noarch/"
 popd
 
 $packer_dir/packer build ddk.conf
