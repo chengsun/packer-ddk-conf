@@ -2,10 +2,17 @@
 
 echo "### Setting up host NAT"
 
-expect -c "spawn ssh $HOST_USERNAME@$HOST_IP" \
-	   -c "expect -exact \"$HOST_USERNAME@$HOST_IP's password: \"" \
-       -c "send -- \"$HOST_PASSWORD\r\"" \
-       -c "interact" <<EOF
+expect -c "spawn ssh $HOST_USERNAME@$HOST_IP
+		   expect {
+               \"Are you sure you want to continue connecting (yes/no)? \" {
+                   send -- \"yes\r\"
+                   exp_continue
+               }
+               \"$HOST_USERNAME@$HOST_IP's password: \" {
+                    send -- \"$HOST_PASSWORD\r\"
+               }
+           }
+           interact" <<EOF
 # Setup NAT - NB, this _disable the firewall_ - be careful!
 echo 1 > /proc/sys/net/ipv4/ip_forward
 /sbin/iptables -F INPUT
