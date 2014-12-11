@@ -11,4 +11,13 @@ wget -c -r --no-directories --no-parent -R 'index.html,kernel-debuginfo-*,kernel
 wget -c -r --no-directories --no-parent -R 'index.html' -A 'supp-pack-build-*,xcp-python-libs-*,xenserver-ddk-files-*' "$rpmurl/noarch/"
 popd
 
-$packer_dir/packer build ddk.conf
+PACKER_LOG=1 exec $packer_dir/packer build ddk.conf 2>&1 &
+packer_pid=$!
+
+sigterm_handler() {
+	echo "Caught SIGTERM."
+	kill -INT $packer_pid 2>/dev/null
+}
+
+trap sigterm_handler 15
+wait $packer_pid
