@@ -49,5 +49,7 @@ sigterm_handler() {
 
 trap sigterm_handler TERM
 wait $packer_pid
+ret=$?
 
 echo "### Done."
+exit $ret
