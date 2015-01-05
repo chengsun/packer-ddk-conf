@@ -17,7 +17,7 @@ clearpart --all --initlabel
 autopart
 auth  --useshadow  --enablemd5
 firstboot --disabled
-poweroff
+reboot
 
 %packages
 @Core
