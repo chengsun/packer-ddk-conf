@@ -5,6 +5,7 @@ packer_dir='/local/scratch/packer'
 
 echo "### Downloading XenServer RPMs"
 
+[ -d rpms ] && rm -rf rpms
 mkdir -p rpms
 pushd rpms
 wget -c -r --no-directories --no-parent -R 'index.html,kernel-debuginfo-*,kernel-modules-*' -A 'kernel-*,xe-guest-utilities-*' "$rpmurl/x86_64/"
