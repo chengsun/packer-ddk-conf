@@ -18,7 +18,7 @@ PACKER_LOG=1 $packer_dir/packer build ddk.conf 2>&1 &
 packer_pid=$!
 
 exit_handler() {
-	kill -INT $packer_pid 2>/dev/null && echo "### Killed Packer"
+	kill -INT -$packer_pid 2>/dev/null && echo "### Killed Packer"
 }
 
 trap exit_handler EXIT
