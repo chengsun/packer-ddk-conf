@@ -14,16 +14,4 @@ popd
 
 echo "### Starting Packer"
 
-PACKER_LOG=1 $packer_dir/packer build ddk.json 2>&1 &
-packer_pid=$!
-
-exit_handler() {
-	kill -INT -$packer_pid && echo "### Killed Packer"
-}
-
-trap exit_handler EXIT
-wait $packer_pid
-ret=$?
-
-echo "### Done."
-exit $ret
+PACKER_LOG=1 exec $packer_dir/packer build ddk.json 2>&1
