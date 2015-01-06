@@ -17,11 +17,11 @@ echo "### Starting Packer"
 PACKER_LOG=1 $packer_dir/packer build ddk.conf 2>&1 &
 packer_pid=$!
 
-sigterm_handler() {
+exit_handler() {
 	kill -INT $packer_pid 2>/dev/null && echo "### Killed Packer"
 }
 
-trap sigterm_handler EXIT
+trap exit_handler EXIT
 wait $packer_pid
 ret=$?
 
