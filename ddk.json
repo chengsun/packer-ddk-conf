@@ -1,10 +1,10 @@
 {
-	"variables": {
-		"remote_username": "{{env `REMOTE_USERNAME`}}",
-		"remote_password": "{{env `REMOTE_PASSWORD`}}",
-		"remote_host":     "{{env `REMOTE_HOST`}}",
+    "variables": {
+        "remote_username": "{{env `REMOTE_USERNAME`}}",
+        "remote_password": "{{env `REMOTE_PASSWORD`}}",
+        "remote_host":     "{{env `REMOTE_HOST`}}",
         "mirror":          "http://centos.serverspace.co.uk/centos/"
-	},
+    },
     "builders": [{
         "type": "xenserver-iso",
         "remote_username": "{{user `remote_username`}}",
@@ -27,14 +27,14 @@
                 "<tab><wait>",
                 " ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ddk.ks<enter>"
             ],
-		"keep_vm": "on_success"
+        "keep_vm": "on_success"
     }],
-	"provisioners": [{
-		"type": "file",
-		"source": "rpms",
-		"destination": "/tmp"
-	}, {
-		"type": "shell",
-		"inline": [ "yum -y install /tmp/rpms/*.rpm" ]
-	}]
+    "provisioners": [{
+        "type": "file",
+        "source": "rpms",
+        "destination": "/tmp"
+    }, {
+        "type": "shell",
+        "inline": [ "yum -y install /tmp/rpms/*.rpm" ]
+    }]
 }
