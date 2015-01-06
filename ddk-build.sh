@@ -14,7 +14,7 @@ popd
 
 echo "### Starting Packer"
 
-PACKER_LOG=1 $packer_dir/packer build ddk.conf 2>&1 &
+PACKER_LOG=1 $packer_dir/packer build ddk.json 2>&1 &
 packer_pid=$!
 
 exit_handler() {
