@@ -27,7 +27,7 @@
                 "<tab><wait>",
                 " ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ddk.ks<enter>"
             ],
-        "keep_vm": "on_success"
+        "boot_wait": "15s"
     }],
     "provisioners": [{
         "type": "file",
